@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-CargoPrmDO" type="com.huangxt.dal.dataobject.CargoPrmDO" />
+
+	<resultMap id="RM-CargoPrmDO" class="TA-CargoPrmDO">
+		<result property="id" 			column="id" 			jdbcType="NUMBER" />
+		<result property="name" 		column="name" 			jdbcType="VARCHAR" />
+		<result property="operator" 	column="operator" 		jdbcType="VARCHAR" />
+		<result property="address" 		column="address" 		jdbcType="VARCHAR" />
+		<result property="type" 		column="type" 			jdbcType="VARCHAR" />
+		<result property="comment" 		column="comment" 		jdbcType="VARCHAR" />
+		<result property="isDelete" 	column="is_delete" 		jdbcType="VARCHAR" />
+		<result property="gmtCreate" 	column="gmt_create" 	jdbcType="TIMESTAMP" />
+		<result property="gmtModify" 	column="gmt_modify" 	jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入一笔交易记录 -->
+	<insert id="MS-INSERT-CARGO-PRM" parameterClass="TA-CargoPrmDO"> 
+	    insert into bs_cargo_primary (name, operator, address, type, comment, is_delete, gmt_create, gmt_modify) 
+	    values (#name#, #operator#, #address#, #type#, #comment#, #isDelete#, sysdate(), sysdate())
+	    
+	    <selectKey resultClass="long" keyProperty="id" > 
+			SELECT @@identity
+	    </selectKey>
+	</insert> 
+	
+	<!-- 删除某一笔交易记录（即：更新该条记录的is_delete字段） -->
+	<update id="MS-DELETE-CARGO-PRM" parameterClass="HashMap">
+		update bs_cargo_primary 
+		set gmt_modify = sysdate(),
+			operator = #operator#,
+			is_delete='y'
+		where id = #id# 
+	</update>
+
+	<!--根据条件查询交易记录 -->
+	<select id="MS-QUERY-CARGO-PRM-BY-CON" parameterClass="HashMap" resultMap="RM-CargoPrmDO">
+		select * from bs_cargo_primary 
+		
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="optor">
+				operator = #optor#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="addr">
+				address = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="type">
+				type = #type#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="b">
+				<![CDATA[
+				gmt_create >= date_format(#b#, '%Y-%m-%d %H:%i:%s')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="e">
+				<![CDATA[
+				gmt_create <= date_format(#e#, '%Y-%m-%d %H:%i:%s')
+				]]>
+			</isNotEmpty>
+			<isNull prepend="and" property="sth">
+				<![CDATA[
+				is_delete = 'n'
+				]]>
+			</isNull>
+		</dynamic>
+		
+		order by id desc
+		limit #start#, #pageSize#
+	</select>
+	
+	<!--根据条件查询交易记录的条数，用于分页 -->
+	<select id="MS-COUNT-CARGO-PRM-BY-CON" parameterClass="HashMap" resultClass="int">
+		select count(*) from bs_cargo_primary 
+		
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="optor">
+				operator = #optor#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="addr">
+				address = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="type">
+				type = #type#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="b">
+				<![CDATA[
+				gmt_create >= date_format(#b#, '%Y-%m-%d %H:%i:%s')
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="e">
+				<![CDATA[
+				gmt_create <= date_format(#e#, '%Y-%m-%d %H:%i:%s')
+				]]>
+			</isNotEmpty>
+			<isNull prepend="and" property="sth">
+				<![CDATA[
+				is_delete = 'n'
+				]]>
+			</isNull>
+		</dynamic>
+	</select>
+	
+	<!-- 根据主键查找某笔交易的主表记录 -->
+	<select id="MS-QUERY-CARGO-PRM-BY-ID" parameterClass="long" resultMap="RM-CargoPrmDO">
+		select * from bs_cargo_primary where id = #id#
+	</select>
+</sqlMap>

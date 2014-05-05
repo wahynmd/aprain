@@ -1,0 +1,71 @@
+a, font {
+	font-size:20px;
+}
+
+select, input, button {
+	font-size:18px;
+}
+
+#navi, #input, #footer {
+	width: 952px;
+	margin: 0 auto;
+}
+
+.div-center {
+	text-align:center;
+}
+
+.div-center a, font {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#input {
+	margin-top:20px;
+}
+
+#footer {
+	margin-top:50px;
+}
+
+.input-item {
+	text-align:right;
+	width:100px;
+	float:left;
+	padding-right:10px;
+}
+
+#input fieldset {
+	margin-left: 30px;
+	width: 600px;
+}
+#input select {
+	width: 150px;
+}
+
+#result-table {
+	text-align:center;
+	width:900px;
+	border-left:1px solid;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+#result-table th,td {
+	border-right:1px solid;
+	border-bottom:1px solid;
+}
+
+#pageBar {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+#pageBar a, label {
+	margin-left: 20px;
+	font-size:18px;
+}
+
+#footer span {
+	font-size:20px;
+}

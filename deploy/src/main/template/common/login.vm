@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>登录</title>
+		<meta name="description" content="aprain">
+		<meta name="keywords" content="aprain">
+	</head>
+	
+	<style type="text/css">
+		body {
+			font-size:20px;
+		}
+		font {
+			font-size:20px;
+		}
+		.input-item {
+			text-align:left;
+			width:60px;
+			float:left;
+			padding-right:10px;
+		}
+		.font-color-red {
+			color:red;
+		}
+		
+		.button-location {
+			margin-left:70px;
+		}
+	</style>
+	
+	<script language="JavaScript" type="text/JavaScript">
+		function check() {
+			var form = document.getElementById('loginForm');
+			var name = document.getElementById('name1').value;
+			var pass = document.getElementById('pass1').value;
+			
+			if( (name != '') && (pass != '') ) {
+				form.submit();
+				return true;
+			} else {
+				alert('请输入用户名和密码！');
+				return false;
+			}
+		}
+	</script>
+	
+	<body>
+		<div>
+		<!--
+			<form action="$!url" id="loginForm" method="post">
+				用户名
+				<input id="name1" name="name" type="text" value="" />
+				<br />
+				密码&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="pass1" name="pass" type="password" value="" />
+				<br />
+				<button id="submit" name="submit" class="button-location" onclick="return check()">
+					<font>登录</font>
+				</button>
+			</form>
+		-->
+			
+			<form action="$!url" id="loginForm" method="post">
+				<div class="input-item">用户名</div>
+				<div><input id="name1" name="user" type="text" value="" /></div>
+				
+				<div class="input-item">密码</div>
+				<div><input id="pass1" name="pass" type="password" value="" /></div>
+				
+				<button id="submit" name="submit" class="button-location" onclick="return check()">
+					<font>登录</font>
+				</button>
+			</form>
+			
+			#if( $error )
+				<font class="font-color-red">您输入的用户名或密码有误！</font>
+			#end
+		</div>
+	</body>
+</html>

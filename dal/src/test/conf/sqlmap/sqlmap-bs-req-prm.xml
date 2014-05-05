@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-ReqPrmDO" type="com.huangxt.dal.dataobject.ReqPrmDO" />
+
+	<resultMap id="RM-ReqPrmDO" class="TA-ReqPrmDO">
+		<result property="id" 			column="id" 			jdbcType="NUMBER" />
+		<result property="name" 		column="name" 			jdbcType="VARCHAR" />
+		<result property="operator" 	column="operator" 		jdbcType="VARCHAR" />
+		<result property="address" 		column="address" 		jdbcType="VARCHAR" />
+		<result property="isPay" 		column="is_pay" 		jdbcType="VARCHAR" />
+		<result property="expectTime" 	column="expect_time" 	jdbcType="VARCHAR" />
+		<result property="comment" 		column="comment" 		jdbcType="VARCHAR" />
+		<result property="state" 		column="state" 			jdbcType="VARCHAR" />
+		<result property="gmtCreate" 	column="gmt_create" 	jdbcType="TIMESTAMP" />
+		<result property="gmtModify" 	column="gmt_modify" 	jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 插入一笔要货记录 -->
+	<insert id="MS-INSERT-REQ-PRM" parameterClass="TA-ReqPrmDO"> 
+	    insert into bs_cargo_require_prm (name, operator, address, is_pay, expect_time, comment, state, gmt_create, gmt_modify) 
+	    values (#name#, #operator#, #address#, #isPay#, #expectTime#, #comment#, #state#, sysdate(), sysdate())
+	    
+	    <selectKey resultClass="long" keyProperty="id" > 
+			SELECT @@identity
+	    </selectKey>
+	</insert> 
+	
+	<!-- 更新一笔要货的状态 -->
+	<update id="MS-UP-REQ-PRM-STATE" parameterClass="HashMap">
+		update bs_cargo_require_prm 
+		set gmt_modify = sysdate(),
+			operator = #operator#,
+			state = #state#
+		where id = #id# 
+	</update>
+
+	<!--取得分页的未完成状态的要货记录 -->
+	<select id="MS-QUERY-ALL-WAIT-REQ-PRM" parameterClass="HashMap" resultMap="RM-ReqPrmDO">
+		select * from bs_cargo_require_prm where state = 'wait' order by id desc
+		limit #start#, #pageSize#
+	</select>
+	
+	<!--取得分页的未完成状态的要货记录的数量，用于分页 -->
+	<select id="MS-COUNT-ALL-WAIT-REQ-PRM" resultClass="int">
+		select count(*) from bs_cargo_require_prm where state = 'wait' 
+	</select>
+	
+	<!-- 根据主键查找某笔要货的主表记录 -->
+	<select id="MS-QUERY-REQ-PRM-BY-ID" parameterClass="long" resultMap="RM-ReqPrmDO">
+		select * from bs_cargo_require_prm where id = #id#
+	</select>
+	
+</sqlMap>

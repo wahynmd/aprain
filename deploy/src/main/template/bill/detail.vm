@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			#if( $type == 1 )
+				$!{reqPrmVO.name}
+			#elseif( $type == 2 )
+				$!{tradePrmVO.name}
+			#end
+		</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="$!uriBroker.get("style_domain")/css/common.css" rel="stylesheet" />
+	</head>
+	
+	<body>
+		<div class="div-center">
+			<h1>
+				#if( $type == 1 )
+					$!{reqPrmVO.name}
+				#elseif( $type == 2 )
+					$!{tradePrmVO.name}
+				#end
+			</h1>
+		</div>
+		
+		<div id="input">
+			<fieldset>
+				#if( $type == 1 )
+					<legend><font>该项发货申请的主要信息</font></legend>
+					
+			     	<div class="input-item">联系电话</div>
+			     	<div>
+			     		<input id="phone" name="phone" type="text" value="$!{reqPrmVO.phone}" size="15" readonly="true"/>
+			     	</div>
+			     	
+			     	<div class="input-item">目的地</div>
+			     	<div>
+			     		<input id="addr" name="addr" type="text" value="#if( $stringUtil.equals('xk', ${reqPrmVO.addr}) )小库 #elseif( $stringUtil.equals('hy', ${reqPrmVO.addr}) )货站 #elseif( $stringUtil.equals('th', ${reqPrmVO.addr}) )库房提货 #end" size="25" readonly="true"/>
+			     	</div>
+				    
+				    <div class="input-item">详细地址</div>
+			     	<div>
+			     		<input id="detailAddr" name="detailAddr" type="text" value="$!{reqPrmVO.detailAddr}" size="25" readonly="true"/>
+			     	</div>
+				    
+					<div class="input-item">是否付款</div>
+			     	<div>
+			     		<input id="isPay" name="isPay" type="text" value="#if( $stringUtil.equals('yes', ${reqPrmVO.isPay}) )已经付款 #elseif( $stringUtil.equals('no_hy', ${reqPrmVO.isPay}) )货运代收 #elseif( $stringUtil.equals('no_kf', ${reqPrmVO.isPay}) )库房收款 #end" size="25" readonly="true"/>
+			     	</div>
+			     	
+			     	<div class="input-item">期望完成时间</div>
+			     	<div>
+			     		<input id="expectTime" name="expectTime" type="text" value="$!{reqPrmVO.expectTime}" size="25" readonly="true" />
+			     	</div>
+			     	
+			     	<div class="input-item">备注</div>
+			     	<div>
+			     		<textarea name="comment" rows="5" cols="35" readonly="readonly">$!{reqPrmVO.comment}</textarea>
+			     	</div>
+				#elseif( $type == 2 )
+					<legend><font>该项交易记录的主要信息</font></legend>
+					
+					<div class="input-item">存货地</div>
+			     	<div>
+			     		<input id="isPay" name="isPay" type="text" value="#if( $stringUtil.equals('dk', ${tradePrmVO.addr}) )大库 #elseif( $stringUtil.equals('xk', ${tradePrmVO.addr}) )小库 #end" size="25" readonly="true"/>
+			     	</div>
+			     	
+			     	<div class="input-item">类型</div>
+			     	<div>
+			     		<input id="tradeType" name="tradeType" type="text" value="#if($stringUtil.equals('b',$!{tradePrmVO.type}))进货 #elseif($stringUtil.equals('s',$!{tradePrmVO.type}))售货 #end" size="25" readonly="true" />
+			     	</div>
+			     	
+			     	<div class="input-item">发生时间</div>
+			     	<div>
+			     		<input id="expectTime" name="expectTime" type="text" value="$!{tradePrmVO.getCreateString()}" size="25" readonly="true" />
+			     	</div>
+			     	
+			     	<div class="input-item">备注</div>
+			     	<div>
+			     		<textarea name="comment" rows="5" cols="35" readonly="readonly">$!{tradePrmVO.comment}</textarea>
+			     	</div>
+				#end
+			</fieldset>
+			
+			<br />
+			
+			<table id="result-table" align="center" border="1">
+				<tr>
+			    	#if( $type == 1 )
+			    		<th width="10%">尺寸</th>
+				 		<th width="10%">厚度</th>
+				 		<th width="10%">等级</th>
+				 		<th width="10%">材质</th>
+				    	<th width="10%">数量</th>
+				    	<th width="15%">价格</th>
+				    	<th width="35%">备注</th>
+				    #elseif( $type == 2 )
+				    	<th width="20%">尺寸</th>
+				 		<th width="10%">厚度</th>
+				 		<th width="10%">等级</th>
+				 		<th width="10%">材质</th>
+				    	<th width="25%">数量</th>
+				    	<th width="25%">价格</th>
+			    	#end
+			  	</tr>
+			  	#if( $type == 1 )
+					#foreach($vo in $reqDtlVOList)
+					  	<tr>
+					    	<td>$!{vo.size}</td>
+					    	<td>$!{vo.height}</td>
+					    	<td>
+					    		#if($stringUtil.equals("A",$!{vo.grade}))
+					    			<font color="red">$!{vo.grade}</font>
+					    		#elseif($stringUtil.equals("B",$!{vo.grade}))
+					    			<font color="blue">$!{vo.grade}</font>
+					    		#else
+					    			$!{vo.grade}
+					    		#end
+					    	</td>
+					    	<td>$!{vo.material}</td>
+					    	<td>$!{vo.num}</td>
+					    	<td>$!{vo.price}</td>
+					    	<td>$!{vo.comment}</td>
+					  	</tr>
+					#end
+				#elseif( $type == 2 )
+					#foreach($vo in $tradeDtlVOList)
+					  	<tr>
+					    	<td>$!{vo.size}</td>
+					    	<td>$!{vo.height}</td>
+					    	<td>
+					    		#if($stringUtil.equals("A",$!{vo.grade}))
+					    			<font color="red">$!{vo.grade}</font>
+					    		#elseif($stringUtil.equals("B",$!{vo.grade}))
+					    			<font color="blue">$!{vo.grade}</font>
+					    		#else
+					    			$!{vo.grade}
+					    		#end
+							</td>
+					    	<td>$!{vo.material}</td>
+					    	<td>$!{vo.num}</td>
+					    	<td>$!{vo.price}</td>
+					  	</tr>
+					#end
+				#end
+			</table>
+		</div>
+		
+		<div id="footer">
+			<hr />
+			<div class="div-center">
+				<span>aprain 版权所有 2012-3000</span>
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-HelloDO" type="com.huangxt.dal.dataobject.HelloDO" />
+
+	<resultMap id="RM-Hello" class="TA-HelloDO">
+		<result property="id" 		column="ID" 	jdbcType="NUMBER" />
+		<result property="value" 	column="Value" 	jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--应用状态ok查询sql -->
+	<select id="MS-QUERY-HELLO" resultMap="RM-Hello">
+	  <![CDATA[
+		select id, value from hello
+	  ]]>
+	</select>
+
+</sqlMap>

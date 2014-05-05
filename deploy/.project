@@ -1,0 +1,25 @@
+<projectDescription>
+  <name>aprain.deploy</name>
+  <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>aprain.biz.bill</project>
+    <project>aprain.biz.common</project>
+    <project>aprain.biz.open</project>
+    <project>aprain.biz.personal</project>
+    <project>aprain.biz.stock</project>
+    <project>aprain.dal</project>
+    <project>aprain.web.bill</project>
+    <project>aprain.web.common</project>
+    <project>aprain.web.open</project>
+    <project>aprain.web.personal</project>
+    <project>aprain.web.stock</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

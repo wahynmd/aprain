@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName">
+    <bean id="helloAO" class="com.huangxt.biz.personal.HelloAO" scope="prototype" />
+    
+    <!-- bill业务模块集合 -->
+    <bean id="helloBillAO" class="com.huangxt.biz.bill.HelloBillAO" scope="prototype" />
+    <bean id="commonAO" class="com.huangxt.biz.bill.ao.CommonAO" scope="prototype" />
+    <bean id="tradeAO" class="com.huangxt.biz.bill.ao.TradeAO" scope="prototype" />
+    <bean id="requireAO" class="com.huangxt.biz.bill.ao.RequireAO" scope="prototype" />
+    <bean id="overviewAO" class="com.huangxt.biz.bill.ao.OverviewAO" scope="prototype" />
+    
+    <!-- stock业务模块集合 -->
+    <bean id="helloStockAO" class="com.huangxt.biz.stock.HelloStockAO" scope="prototype" />
+    
+    <!-- open api 收费业务模块集合 -->
+    <bean id="helloOpenAO" class="com.huangxt.biz.open.HelloOpenAO" scope="prototype" />
+    
+</beans>

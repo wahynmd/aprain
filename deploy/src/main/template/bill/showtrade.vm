@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>历史进货、卖货明细</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="$!uriBroker.get("style_domain")/css/common.css" rel="stylesheet" />
+	</head>
+	
+	<body>
+		<div class="div-center">
+			<h1>您好 $!user， 历史进货、卖货明细：</h2>
+		</div>
+		
+		<div id="navi">
+			<div class="div-center">
+				<a href="$!uriBroker.get("bill_package")/index.htm" title="首页">首页</a>
+				
+				<a href="$!uriBroker.get("bill_package")/addreq.htm" title="当口添加一笔要货信息">添加要货</a>
+				<a href="$!uriBroker.get("bill_package")/showreq.htm" title="查看当口要货信息">查看要货</a>
+				<a href="$!uriBroker.get("bill_package")/overview.htm" title="查看库存情况">库存</a>
+				<a href="$!uriBroker.get("bill_package")/addsell.htm" title="退录入卖货信息">卖货</a>
+				<a href="$!uriBroker.get("bill_package")/addbuy.htm" title="录入进货信息">进货</a>
+				<font>历史明细</font>
+				
+				<a href="$!uriBroker.get("common_package")/logout.htm" title="退出">退出</a>
+			</div>
+		</div>
+		
+		<div id="input">
+			<fieldset>
+			    <legend><font>查询条件</font></legend>
+			    
+			    <form action="$!uriBroker.get("bill_package")/showtrade.htm" method="post">
+					<div class="input-item">操作人</div>
+			     	<div>
+			     		<input id="operator" name="operator" type="text" value="$!{tradeSearchParamVO.operator}" size="15" />
+			     	</div>
+			     	
+			     	<div class="input-item">库房</div>
+			     	<div>
+			     		<select id="addr" name="addr" >
+						  <option value=""></option>
+						  <option value="dk" #if($stringUtil.equals("dk",$!{tradeSearchParamVO.address})) selected #end>大库</option>
+						  <option value="xk" #if($stringUtil.equals("xk",$!{tradeSearchParamVO.address})) selected #end>小库</option>
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">类型</div>
+			     	<div>
+			     		<select id="tradeType" name="tradeType" >
+						  <option value=""></option>
+						  <option value="b" #if($stringUtil.equals("b",$!{tradeSearchParamVO.tradeType})) selected #end >进货</option>
+						  <option value="s" #if($stringUtil.equals("s",$!{tradeSearchParamVO.tradeType})) selected #end>售货</option>
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">发生日期</div>
+			     	<div>
+			     		<input id="dateBegin" name="dateBegin" type="text" value="$!{tradeSearchParamVO.getBeginString()}" size="8" />
+			     		-
+			     		<input id="dateEnd" name="dateEnd" type="text" value="$!{tradeSearchParamVO.getEndString()}" size="8" />
+			     		（输入格式如：2012-02-26）
+			     	</div>
+			     	
+			     	<div class="input-item">&nbsp;</div>
+			     	<div>
+			     		<button id="submit" type="submit" >查询</button>
+			     	</div>
+			     </form>
+			</fieldset>
+			
+			<br />
+			
+			<table id="result-table" align="center" border="1">
+				<tr>
+			 		<th width="20%">名称</th>
+			 		<th width="9%">库房</th>
+			 		<th width="9%">类型</th>
+			 		<th width="10%">操作人</th>
+			 		<th width="15%">发生时间</th>
+			    	<th width="25%">备注</th>
+			    	<th width="12%">操作</th>
+			  	</tr>
+			  	#foreach( $vo in $tradeMainVOList )
+				  	<tr>
+				    	<td>$!{vo.name}</td>
+				    	<td>
+				    		#if( $stringUtil.equals("xk", ${vo.addr}) )
+				    			小库
+				    		#elseif( $stringUtil.equals("dk", ${vo.addr}) )
+				    			大库
+				    		#end
+				    	</td>
+				    	<td>
+				    		#if( $stringUtil.equals("b", $!{vo.type}) )
+				    			进货
+				    		#elseif( $stringUtil.equals("s", $!{vo.type}) )
+				    			售货
+				    		#end
+				    	</td>
+				    	<td>$!{vo.operator}</td>
+				    	<td>$!{vo.getCreateString()}</td>
+				    	<td>$!{vo.comment}</td>
+				    	<td>
+				    		<a href="$!uriBroker.get("bill_package")/detail.htm?id=${vo.id}&type=2" title="查看明细" target="_blank">明细</a>
+				    		
+				    		#if( ($stringUtil.equals(${vo.operator}, $user)) && (${userRoleModel.canDelTrade}) )
+				    			<a href="$!uriBroker.get("bill_package")/operate/uptrade.htm?id=${vo.id}" title="删除" onclick="return confirm('确认执行该操作吗？')">删除</a>
+							#end
+						</td>
+				  	</tr>
+			  	#end
+			</table>
+			
+			#if( $!maxPage != 0 )
+				<div id="pageBar">
+					<label>第$!{tradeSearchParamVO.page}页/共$!maxPage页</label>
+					
+					#set($pre = $!{tradeSearchParamVO.page} - 1)
+					#set($next = $!{tradeSearchParamVO.page} + 1)
+					
+					#if( $!{tradeSearchParamVO.page} == 1 )
+						<label>上一页</label>
+					#else
+						<a href="$!uriBroker.get("bill_package")/overview.htm?p=$!pre&operator=$!{tradeSearchParamVO.operator}&addr=$!{tradeSearchParamVO.address}&tradeType=$!{tradeSearchParamVO.tradeType}&dateBegin=$!{tradeSearchParamVO.getBeginString()}&dateEnd=$!{tradeSearchParamVO.getEndString()}" title="上一页">上一页</a>
+					#end
+					
+					#if( $!{tradeSearchParamVO.page} == $!maxPage )
+						<label>下一页</label>
+					#else
+						<a href="$!uriBroker.get("bill_package")/overview.htm?p=$!next&operator=$!{tradeSearchParamVO.operator}&addr=$!{tradeSearchParamVO.address}&tradeType=$!{tradeSearchParamVO.tradeType}&dateBegin=$!{tradeSearchParamVO.getBeginString()}&dateEnd=$!{tradeSearchParamVO.getEndString()}" title="下一页">下一页</a>
+					#end
+				</div>
+			#end
+			
+		</div>
+		
+		<div id="footer">
+			<hr />
+			<div class="div-center">
+				<span>aprain 版权所有 2012-3000</span>
+			</div>
+		</div>
+		
+	</body>
+</html>

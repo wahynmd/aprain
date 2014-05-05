@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>录入进货数据</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="$!uriBroker.get("style_domain")/css/common.css" rel="stylesheet" />
+		<script src="$!uriBroker.get("style_domain")/js/addbuy.js" type="text/javascript"></script>
+	</head>
+	
+	<body>
+		<div class="div-center">
+			<h1>您好 $!user， 请输入进货数据：</h2>
+		</div>
+		
+		<div id="navi">
+			<div class="div-center">
+				<a href="$!uriBroker.get("bill_package")/index.htm" title="首页">首页</a>
+				
+				<a href="$!uriBroker.get("bill_package")/addreq.htm" title="当口添加一笔要货信息">添加要货</a>
+				<a href="$!uriBroker.get("bill_package")/showreq.htm" title="查看当口要货信息">查看要货</a>
+				<a href="$!uriBroker.get("bill_package")/overview.htm" title="查看库存情况">库存</a>
+				<a href="$!uriBroker.get("bill_package")/addsell.htm" title="退录入卖货信息">卖货</a>
+				<font>进货</font>
+				<a href="$!uriBroker.get("bill_package")/showtrade.htm" title="查看进货卖货明细">历史明细</a>
+				
+				<a href="$!uriBroker.get("common_package")/logout.htm" title="退出">退出</a>
+			</div>
+		</div>
+		
+		<div id="input">
+			<fieldset>
+			    <legend><font>输入进货的主要信息</font></legend>
+			   	
+			   	<form id="addBuy" name="addBuy" action="$!uriBroker.get("bill_package")/addbuy.htm" method="post">
+			     	<input type="hidden" name="isAction" value="yes">
+			     	<input type="hidden" id="detailJson" name="detailJson" value="">
+			     	
+			     	<div class="input-item">名字</div>
+			     	<div>
+			     		<input id="name" name="name" type="text" value="" size="25" />
+			     	</div>
+			     	
+			     	<div class="input-item">存放地</div>
+			     	<div>
+			     		<select id="addr" name="addr" >
+						  <option value="dk">大库</option>
+						</select>
+			     	</div>
+				    
+			     	<div class="input-item">备注</div>
+			     	<div>
+			     		<textarea name="comment" rows="5" cols="35"></textarea>
+			     	</div>
+			     	
+			     	<div class="input-item">&nbsp;</div>
+			     	<div>
+			     		<input id="asdf" type="button" onclick="return createJsonAndSubmit()" value="提交" />
+			     	</div>
+		     	</form>
+			</fieldset>
+			
+			<br />
+			
+			<fieldset>
+			    <legend><font>增加一个进货品种</font></legend>
+			    
+				<div class="input-item">尺寸</div>
+		     	<div>
+		     		<select id="size" name="size" >
+					  <option value=""></option>
+					  #foreach($do1 in $itemDOList)
+				  		  #if($stringUtil.equals("size",$!{do1.type}))
+				  			 <option value="$!{do1.id}">$!{do1.value}</option>
+				  		  #end
+					  #end
+					</select>
+		     	</div>
+		     	
+		     	<div class="input-item">厚度</div>
+		     	<div>
+		     		<select id="height" name="height" >
+					  <option value=""></option>
+					  #foreach($do1 in $itemDOList)
+				  		  #if($stringUtil.equals("height",$!{do1.type}))
+				  			 <option value="$!{do1.id}">$!{do1.value}</option>
+				  		  #end
+					  #end
+					</select>
+		     	</div>
+		     	
+		     	<div class="input-item">等级</div>
+		     	<div>
+		     		<select id="grade" name="grade" >
+					  <option value=""></option>
+					  #foreach($do1 in $itemDOList)
+				  		  #if($stringUtil.equals("grade",$!{do1.type}))
+				  			 <option value="$!{do1.id}">$!{do1.value}</option>
+				  		  #end
+					  #end
+					</select>
+		     	</div>
+		     	
+		     	<div class="input-item">材质</div>
+		     	<div>
+		     		<select id="material" name="material" >
+					  <option value=""></option>
+					  #foreach($do1 in $itemDOList)
+				  		  #if($stringUtil.equals("material",$!{do1.type}))
+				  			 <option value="$!{do1.id}">$!{do1.value}</option>
+				  		  #end
+					  #end
+					</select>
+		     	</div>
+		     	
+		     	<div class="input-item">数量</div>
+		     	<div>
+		     		<input id="num" name="num" type="text" value="" size="15" />
+		     		<label for="num">张</label>
+		     	</div>
+		     	
+		     	<div class="input-item">进价</div>
+		     	<div>
+		     		<input id="price" name="price" type="text" value="" size="15" />
+		     		<label for="price">元/张</label>
+		     		<button id="add" onclick="doAdd()">添加</button>
+		     	</div>
+		     	
+			</fieldset>
+			
+			<br />
+			
+			<table id="result-table" align="center" border="1">
+				<tr>
+			 		<th width="20%">尺寸</th>
+			 		<th width="10%">厚度(毫米)</th>
+			 		<th width="10%">等级</th>
+			 		<th width="10%">材质</th>
+			    	<th width="25%">数量(张)</th>
+			    	<th width="25%">进价(元/张)</th>
+			  	</tr>
+			</table>
+		</div>
+		
+		<div id="footer">
+			<hr />
+			<div class="div-center">
+				<span>aprain 版权所有 2012-3000</span>
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>欢迎光临本系统</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="$!uriBroker.get("style_domain")/css/common.css" rel="stylesheet" />
+	</head>
+	
+	<body>
+		<div class="div-center">
+			<h1>您好 $!user， 欢迎登录本系统！</h2>
+		</div>
+		
+		<div id="navi">
+			<div class="div-center">
+				<font>首页</font>
+				
+				<a href="$!uriBroker.get("bill_package")/addreq.htm" title="当口添加一笔要货信息">添加要货</a>
+				<a href="$!uriBroker.get("bill_package")/showreq.htm" title="查看当口要货信息">查看要货</a>
+				<a href="$!uriBroker.get("bill_package")/overview.htm" title="查看库存情况">库存</a>
+				<a href="$!uriBroker.get("bill_package")/addsell.htm" title="退录入卖货信息">卖货</a>
+				<a href="$!uriBroker.get("bill_package")/addbuy.htm" title="录入进货信息">进货</a>
+				<a href="$!uriBroker.get("bill_package")/showtrade.htm" title="查看进货卖货明细">历史明细</a>
+				
+				<a href="$!uriBroker.get("common_package")/logout.htm" title="退出">退出</a>
+			</div>
+		</div>
+		
+	</body>
+</html>

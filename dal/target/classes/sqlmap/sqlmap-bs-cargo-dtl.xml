@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-CargoDtlDO" type="com.huangxt.dal.dataobject.CargoDtlDO" />
+
+	<resultMap id="RM-CargoDtlDO" class="TA-CargoDtlDO">
+		<result property="id" 		column="ID" 		jdbcType="NUMBER" />
+		<result property="prmId" 	column="primary_id" jdbcType="NUMBER" />
+		<result property="size" 	column="size" 		jdbcType="NUMBER" />
+		<result property="height" 	column="height" 	jdbcType="NUMBER" />
+		<result property="grade" 	column="grade" 		jdbcType="NUMBER" />
+		<result property="material" column="material" 	jdbcType="NUMBER" />
+		<result property="price" 	column="price" 		jdbcType="VARCHAR" />
+		<result property="num" 		column="num" 		jdbcType="NUMBER" />
+	</resultMap>
+
+	<!--根据主表id查询一笔交易的详细记录 -->
+	<select id="MS-QUERY-CARGO-DTLS-BY-ID" parameterClass="long" resultMap="RM-CargoDtlDO">
+		select * from bs_cargo_detail where primary_id = #prmId# order by id desc
+	</select>
+	
+	<!-- 添加一笔交易的详细记录 -->
+	<insert id="MS-INSERT-CARGO-DTL" parameterClass="TA-CargoDtlDO"> 
+	    insert into bs_cargo_detail (primary_id, size, height, grade, material, price, num) 
+	    values (#prmId#, #size#, #height#, #grade#, #material#, #price#, #num#)
+	</insert> 
+	
+</sqlMap>

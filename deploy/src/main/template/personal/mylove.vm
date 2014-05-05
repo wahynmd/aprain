@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>纪念那份逝去的爱</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	
+	<style type="text/css">
+		.word-center {
+        	text-align:center;
+        }
+		.input-item {
+			display:inline-block;
+        	text-align:right;
+        	width:100px;
+			vertical-align:top;
+        }
+		.input-value {
+			width:260px;
+		}
+		.div-center {
+        	margin: 0 auto;
+			width:400px;
+        }
+		.submit-style{
+			margin-left:108px;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		function doAdd() {
+			var name = document.getElementById('name').value;
+			var msg = document.getElementById('msg').value;
+			
+			if( name == "" || name == "让我知道你是谁" || msg == "" ) {
+				alert('请填写名字和留言内容！');
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+	
+	<body>
+		<div class="word-center">
+			<h1>无题</h2>
+			<h3>天空是黑色的</h3>
+			<h3>星星是明亮的</h3>
+			<h3>心是透明的</h3>
+			<h3>思念是缠绵的</h3>
+			<h3>回忆是无色的</h3>
+			<h3>享受是无穷的</h3>
+			<h3>你我同在夜空下</h3>
+			<h3>是否同享一片繁星呢？</h3>
+		</div>
+		
+		<div>
+    		<div class="div-center">
+				<hr /><br />
+				<form id="sendMsg" name="sendMsg" action="$!uriBroker.get("personal_package")/mylove.htm" method="post">
+            		<span class="input-item">名字</span>
+        			<input id="name" name="name" type="text" value="让我知道你是谁" size="25" class="input-value" />
+            		<br />
+					
+            		<span class="input-item">留言</span>
+        			<textarea id="msg" name="msg" rows="5" cols="25" class="input-value"></textarea>
+    				<br />
+					
+    				<button id="add" onclick="return doAdd()" class="submit-style">告诉我</button>
+				</form>
+    		</div>
+		</div>
+	</body>
+</html>

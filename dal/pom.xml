@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>aprain.parent</artifactId>
+		<groupId>aprain.huangxt</groupId>
+		<version>1.0</version>
+	</parent>
+	<groupId>aprain.huangxt</groupId>
+	<artifactId>aprain.dal</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<name>aprain.dal</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>huangxt.ext.apachecommons</groupId>
+			<artifactId>commons.logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext.spring</groupId>
+			<artifactId>springframework</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext.dbconnector</groupId>
+			<artifactId>mysql.jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext.dborm</groupId>
+			<artifactId>ibatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext.dbconnector</groupId>
+			<artifactId>dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext.dbconnector</groupId>
+			<artifactId>commons.pool</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>huangxt.ext</groupId>
+			<artifactId>junit.org</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/test/conf</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>

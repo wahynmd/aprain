@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<url>
+	<!-- 通用的域名或模块 -->
+	<uri name="domain" extends="">http://${domain.name}:${domain.port}</uri>
+	<uri name="style_domain" extends="">http://${style.domain.name}:${style.domain.port}</uri>
+	
+	<uri name="common_package" extends="domain">/common</uri>
+	<uri name="bill_package" extends="domain">/bill</uri>
+	<uri name="personal_package" extends="domain">/personal</uri>
+	
+	<!-- 具体的页面 -->
+	<uri name="login_page" extends="common_package">/login.htm</uri>
+	<uri name="bill_index_page" extends="bill_package">/index.htm</uri>
+	<uri name="bill_show_trade_page" extends="bill_package">/showtrade.htm</uri>
+	<uri name="bill_show_req_page" extends="bill_package">/showreq.htm</uri>
+</url>

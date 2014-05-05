@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aprain</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	
+	<style type="text/css">
+		.div-center {
+        	text-align:center;
+        }
+	</style>
+	
+	<body>
+		<div class="div-center">
+			<h1>您的潜力，我们的动力！</h2>
+		</div>
+	</body>
+</html>

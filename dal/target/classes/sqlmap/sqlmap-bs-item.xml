@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-ItemDO" type="com.huangxt.dal.dataobject.ItemDO" />
+
+	<resultMap id="RM-ItemDO" class="TA-ItemDO">
+		<result property="id" 		column="ID" 	jdbcType="NUMBER" />
+		<result property="type" 	column="Type" 	jdbcType="VARCHAR" />
+		<result property="value" 	column="Value" 	jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--根据类型的list批量获取所有枚举值模型 -->
+	<select id="MS-QUERY-BY-TYPE-LIST" parameterClass="HashMap" resultMap="RM-ItemDO">
+		select id, type, value from bs_item where type in 
+		<iterate conjunction="," open="(" close=")" property="types">
+			#types[]#
+		</iterate>
+	</select>
+	
+	<!--根据主键list得到所有的枚举值模型 -->
+	<select id="MS-QUERY-BY-ID-LIST" parameterClass="HashMap" resultMap="RM-ItemDO">
+		select id, type, value from bs_item where id in 
+		<iterate conjunction="," open="(" close=")" property="ids">
+			#ids[]#
+		</iterate>
+	</select>
+</sqlMap>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>查看库存情况</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="$!uriBroker.get("style_domain")/css/common.css" rel="stylesheet" />
+	</head>
+	
+	<style type="text/css">
+		.input-item {
+			text-align:right;
+			width:60px;
+			float:left;
+			padding-right:10px;
+		}
+		#input fieldset {
+			margin-left: 30px;
+			width: 400px;
+		}
+		#input select {
+			width: 100px;
+		}
+	</style>
+	
+	<body>
+		<div class="div-center">
+			<h1>您好 $!user， 库存情况数据：</h2>
+		</div>
+		
+		<div id="navi">
+			<div class="div-center">
+				<a href="$!uriBroker.get("bill_package")/index.htm" title="首页">首页</a>
+				
+				<a href="$!uriBroker.get("bill_package")/addreq.htm" title="当口添加一笔要货信息">添加要货</a>
+				<a href="$!uriBroker.get("bill_package")/showreq.htm" title="查看当口要货信息">查看要货</a>
+				<font>库存</font>
+				<a href="$!uriBroker.get("bill_package")/addsell.htm" title="退录入卖货信息">卖货</a>
+				<a href="$!uriBroker.get("bill_package")/addbuy.htm" title="录入进货信息">进货</a>
+				<a href="$!uriBroker.get("bill_package")/showtrade.htm" title="查看进货卖货明细">历史明细</a>
+				
+				<a href="$!uriBroker.get("common_package")/logout.htm" title="退出">退出</a>
+			</div>
+		</div>
+		
+		<div id="input">
+			<fieldset>
+			    <legend><font>查询条件</font></legend>
+			    <form action="$!uriBroker.get("bill_package")/overview.htm" method="post">
+					<div class="input-item">尺寸</div>
+			     	<div>
+			     		<select id="size" name="size" >
+						  <option value=""></option>
+						  #foreach($do1 in $itemDOList)
+					  		  #if($stringUtil.equals("size",$!{do1.type}))
+					  			 <option value="$!{do1.id}" #if( $!{do1.id} == $!{overviewSearchParamVO.size} ) selected #end>$!{do1.value}</option>
+					  		  #end
+						  #end
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">厚度</div>
+			     	<div>
+			     		<select id="height" name="height" >
+						  <option value=""></option>
+						  #foreach($do1 in $itemDOList)
+					  		  #if($stringUtil.equals("height",$!{do1.type}))
+					  			 <option value="$!{do1.id}" #if( $!{do1.id} == $!{overviewSearchParamVO.height} ) selected #end>$!{do1.value}</option>
+					  		  #end
+						  #end
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">等级</div>
+			     	<div>
+			     		<select id="grade" name="grade" >
+						  <option value=""></option>
+						  #foreach($do1 in $itemDOList)
+					  		  #if($stringUtil.equals("grade",$!{do1.type}))
+					  			 <option value="$!{do1.id}" #if( $!{do1.id} == $!{overviewSearchParamVO.grade} ) selected #end>$!{do1.value}</option>
+					  		  #end
+						  #end
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">材质</div>
+			     	<div>
+			     		<select id="material" name="material" >
+						  <option value=""></option>
+						  #foreach($do1 in $itemDOList)
+					  		  #if($stringUtil.equals("material",$!{do1.type}))
+					  			 <option value="$!{do1.id}" #if( $!{do1.id} == $!{overviewSearchParamVO.material} ) selected #end>$!{do1.value}</option>
+					  		  #end
+						  #end
+						</select>
+			     	</div>
+			     	
+			     	<div class="input-item">地点</div>
+			     	<div>
+			     		<select id="addr" name="addr" >
+						  <option value=""></option>
+						  <option value="dk" #if($stringUtil.equals("dk",$!{overviewSearchParamVO.addr})) selected #end>大库</option>
+						  <option value="xk" #if($stringUtil.equals("xk",$!{overviewSearchParamVO.addr})) selected #end>小库</option>
+						</select>
+						<button id="submit" type="submit" >查询</button>
+			     	</div>
+		     	</form>
+			</fieldset>
+			
+			<br />
+			
+			<table id="result-table" align="center" border="1">
+				<tr>
+			 		<th width="20%">尺寸</th>
+			 		<th width="15%">厚度</th>
+			 		<th width="15%">等级</th>
+			 		<th width="15%">材质</th>
+			    	<th width="15%">存货地点</th>
+			    	<th width="20%">数量(张)</th>
+			  	</tr>
+			  	
+			  	#foreach( $vo in $overviewVOList )
+				  	<tr>
+				    	<td>$!{vo.size}</td>
+				    	<td>$!{vo.height}</td>
+				    	<td>$!{vo.grade}</td>
+				    	<td>$!{vo.material}</td>
+				    	<td>
+				    		#if( $stringUtil.equals("xk", $!{vo.addr}) )
+				    			小库
+				    		#elseif( $stringUtil.equals("dk", $!{vo.addr}) )
+				    			大库
+				    		#end
+				    	</td>
+				    	<td>$!{vo.num}</td>
+				  	</tr>
+			  	#end
+			  	
+			</table>
+			
+			#if( $!maxPage != 0 )
+				<div id="pageBar">
+					<label>第$!{overviewSearchParamVO.page}页/共$!maxPage页</label>
+					
+					#set($pre = $!{overviewSearchParamVO.page} - 1)
+					#set($next = $!{overviewSearchParamVO.page} + 1)
+					
+					#if( $!{overviewSearchParamVO.page} == 1 )
+						<label>上一页</label>
+					#else
+						<a href="$!uriBroker.get("bill_package")/overview.htm?page=$!pre&grade=$!{overviewSearchParamVO.grade}&material=$!{overviewSearchParamVO.material}&height=$!{overviewSearchParamVO.height}&size=$!{overviewSearchParamVO.size}&addr=$!{overviewSearchParamVO.addr}" title="上一页">上一页</a>
+					#end
+					
+					#if( $!{overviewSearchParamVO.page} == $!maxPage )
+						<label>下一页</label>
+					#else
+						<a href="$!uriBroker.get("bill_package")/overview.htm?page=$!next&grade=$!{overviewSearchParamVO.grade}&material=$!{overviewSearchParamVO.material}&height=$!{overviewSearchParamVO.height}&size=$!{overviewSearchParamVO.size}&addr=$!{overviewSearchParamVO.addr}" title="下一页">下一页</a>
+					#end
+				</div>
+			#end
+			
+		</div>
+		
+		<div id="footer">
+			<hr />
+			<div class="div-center">
+				<span>aprain 版权所有 2012-3000</span>
+			</div>
+		</div>
+		
+	</body>
+</html>

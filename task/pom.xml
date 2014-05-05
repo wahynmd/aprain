@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>aprain.parent</artifactId>
+		<groupId>aprain.huangxt</groupId>
+		<version>1.0</version>
+	</parent>
+	<groupId>aprain.huangxt</groupId>
+	<artifactId>aprain.task</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<name>aprain.task</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+    	<dependency>
+			<groupId>aprain.huangxt</groupId>
+			<artifactId>aprain.biz.common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>aprain.huangxt</groupId>
+			<artifactId>aprain.dal</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+						  <goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+            	<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+            	<executions>
+                	<execution>
+                        <id>assembly-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <zip destfile="${project.build.directory}/aprain.task.uber.jar">
+                                    <zipfileset dir="${project.build.directory}/classes" includes="**" 
+										prefix="tasks/classes" />
+
+                                    <zipfileset dir="${project.build.directory}/lib" includes="**" 
+										prefix="tasks/lib" />
+                                </zip>
+                        	</tasks>
+                    	</configuration>
+                	</execution>
+            	</executions>
+        	</plugin>
+		</plugins>
+
+	    <resources>
+			<resource>
+				<directory>src/main/conf</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.groovy</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>

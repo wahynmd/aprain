@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName">
+    <bean id="helloDAO" class="com.huangxt.dal.ibatis.IbatisHelloDAO" parent="baseSqlMapClientDAO"/>
+    
+    <bean id="overviewDAO" class="com.huangxt.dal.ibatis.IbatisOverviewDAO" parent="baseSqlMapClientDAO"/>
+    <bean id="itemDAO" class="com.huangxt.dal.ibatis.IbatisItemDAO" parent="baseSqlMapClientDAO"/>
+    <bean id="cargoPrmDAO" class="com.huangxt.dal.ibatis.IbatisCargoPrmDAO" parent="baseSqlMapClientDAO"/>
+    <bean id="cargoDtlDAO" class="com.huangxt.dal.ibatis.IbatisCargoDtlDAO" parent="baseSqlMapClientDAO"/>
+    <bean id="reqPrmDAO" class="com.huangxt.dal.ibatis.IbatisReqPrmDAO" parent="baseSqlMapClientDAO"/>
+    <bean id="reqDtlDAO" class="com.huangxt.dal.ibatis.IbatisReqDtlDAO" parent="baseSqlMapClientDAO"/>
+    
+</beans>

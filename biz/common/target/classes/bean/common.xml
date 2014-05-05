@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="location" value="classpath:vars.properties"/>
+	</bean>
+    
+    <bean id="billsysDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://${billsys.db.ip}:${billsys.db.port}/billsys?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="${billsys.db.username}" />
+		<property name="password" value="${billsys.db.password}" />
+        <property name="maxActive"><value>5</value></property>
+        <property name="initialSize"><value>1</value></property>
+        <property name="maxWait"><value>60000</value></property>
+        <property name="maxIdle"><value>2</value></property>
+        <property name="minIdle"><value>1</value></property>
+        <property name="removeAbandoned"><value>true</value></property>
+        <property name="removeAbandonedTimeout"><value>180</value></property>
+		<property name="connectionProperties"><value>clientEncoding=UTF-8;defaultRowPrefetch=50;serverEncoding=UTF-8</value></property>
+		<property name="timeBetweenEvictionRunsMillis"><value>60000</value></property>
+		<property name="minEvictableIdleTimeMillis"><value>1800000</value></property>
+	</bean>
+
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="dataSource">
+			<ref bean="billsysDataSource" />
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="billsysDataSource" />
+		</property>
+	</bean>
+	
+	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" />
+	
+	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true" />
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:prop/sqlmap.xml</value>
+		</property>
+	</bean>
+    
+    <bean id="baseSqlMapClientDAO" abstract="true">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+		<property name="dataSource">
+			<ref bean="billsysDataSource" />
+		</property>
+	</bean>
+    
+</beans>

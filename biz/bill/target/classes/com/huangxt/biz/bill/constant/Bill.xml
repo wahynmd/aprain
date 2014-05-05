@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<messages>
+	<message id="pay_yes">已经付款</message>
+	<message id="pay_no_hy">货运代收</message>
+	<message id="pay_no_kf">库房收款</message>
+	
+	<message id="addr_xk">小库</message>
+	<message id="addr_dk">大库</message>
+	<message id="addr_hy">货站</message>
+	<message id="addr_th">库房提货</message>
+	
+	<message id="trade_type_s">售货</message>
+	<message id="trade_type_b">进货</message>
+</messages>

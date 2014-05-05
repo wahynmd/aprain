@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="false" maxRequests="3000" maxSessions="3000" maxTransactions="3000" useStatementNamespaces="false"/>
+
+	<sqlMap resource="sqlmap/sqlmap-billsys-hello.xml" />
+	
+	<sqlMap resource="sqlmap/sqlmap-bs-item.xml" />
+	<sqlMap resource="sqlmap/sqlmap-bs-overview.xml" />
+	<sqlMap resource="sqlmap/sqlmap-bs-cargo-prm.xml" />
+	<sqlMap resource="sqlmap/sqlmap-bs-cargo-dtl.xml" />
+	<sqlMap resource="sqlmap/sqlmap-bs-req-prm.xml" />
+	<sqlMap resource="sqlmap/sqlmap-bs-req-dtl.xml" />
+	
+</sqlMapConfig>

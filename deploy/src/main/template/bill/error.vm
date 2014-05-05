@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>抱歉 出错了</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	
+	<body>
+		<h2>你好 $!user</h2>
+		<h2>错误信息：
+		#if( $stringUtil.equals("param_error", $code) )
+			您输入的数据有问题！～
+		#elseif( $stringUtil.equals("sys_error", $code) )
+			系统出错，请联系童童！～
+		#elseif( $stringUtil.equals("lack_error", $code) )
+			货物不够，无法售出或完成发货！
+		#elseif( $stringUtil.equals("role_error", $code) )
+			抱歉，您暂无权限进行此操作！
+		#else
+			无错误信息，请联系童童！～
+		#end
+		</h2>
+	</body>
+</html>

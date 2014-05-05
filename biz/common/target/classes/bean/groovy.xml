@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+       						http://www.springframework.org/schema/lang 
+       						http://www.springframework.org/schema/lang/spring-lang-2.5.xsd"
+       default-autowire="byName">
+	
+	<lang:groovy id="helloService" script-source="classpath:com/huangxt/biz/stock/groovy/service/HelloService.groovy" refresh-check-delay="5000">
+    	<lang:property name="name" value="huangxt"/>
+    </lang:groovy>
+	
+</beans>

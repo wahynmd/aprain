@@ -1,0 +1,60 @@
+/*
+ * size
+ */
+insert into bs_item(id, type, value) values(1, 'size', '4.2 * 0.9');
+insert into bs_item(id, type, value) values(2, 'size', '4 * 8');
+
+/*
+ * grade
+ */
+insert into bs_item(id, type, value) values(21, 'grade', 'A');
+insert into bs_item(id, type, value) values(22, 'grade', 'B');
+insert into bs_item(id, type, value) values(23, 'grade', 'C');
+insert into bs_item(id, type, value) values(24, 'grade', 'BC');
+insert into bs_item(id, type, value) values(25, 'grade', '节子');
+insert into bs_item(id, type, value) values(26, 'grade', '皮子');
+
+/*
+ * material
+ */
+insert into bs_item(id, type, value) values(41, 'material', '松木');
+insert into bs_item(id, type, value) values(42, 'material', '橡木');
+insert into bs_item(id, type, value) values(43, 'material', '曲柳');
+insert into bs_item(id, type, value) values(44, 'material', '楸子');
+insert into bs_item(id, type, value) values(45, 'material', '樟松');
+insert into bs_item(id, type, value) values(46, 'material', '辐射松');
+
+/*
+ * height
+ */
+insert into bs_item(id, type, value) values(111, 'height', '11');
+insert into bs_item(id, type, value) values(112, 'height', '12');
+insert into bs_item(id, type, value) values(113, 'height', '13');
+insert into bs_item(id, type, value) values(114, 'height', '14');
+insert into bs_item(id, type, value) values(115, 'height', '15');
+insert into bs_item(id, type, value) values(116, 'height', '16');
+insert into bs_item(id, type, value) values(117, 'height', '17');
+insert into bs_item(id, type, value) values(118, 'height', '18');
+insert into bs_item(id, type, value) values(119, 'height', '19');
+insert into bs_item(id, type, value) values(120, 'height', '20');
+insert into bs_item(id, type, value) values(121, 'height', '21');
+insert into bs_item(id, type, value) values(122, 'height', '22');
+insert into bs_item(id, type, value) values(123, 'height', '23');
+insert into bs_item(id, type, value) values(124, 'height', '24');
+insert into bs_item(id, type, value) values(125, 'height', '25');
+insert into bs_item(id, type, value) values(126, 'height', '26');
+insert into bs_item(id, type, value) values(127, 'height', '27');
+insert into bs_item(id, type, value) values(128, 'height', '28');
+insert into bs_item(id, type, value) values(129, 'height', '29');
+insert into bs_item(id, type, value) values(130, 'height', '30');
+insert into bs_item(id, type, value) values(131, 'height', '31');
+insert into bs_item(id, type, value) values(132, 'height', '32');
+insert into bs_item(id, type, value) values(133, 'height', '33');
+insert into bs_item(id, type, value) values(134, 'height', '34');
+insert into bs_item(id, type, value) values(135, 'height', '35');
+insert into bs_item(id, type, value) values(136, 'height', '36');
+insert into bs_item(id, type, value) values(137, 'height', '37');
+insert into bs_item(id, type, value) values(138, 'height', '38');
+insert into bs_item(id, type, value) values(139, 'height', '39');
+insert into bs_item(id, type, value) values(140, 'height', '40');
+

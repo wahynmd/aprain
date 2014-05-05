@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hello">
+	<typeAlias alias="TA-OverviewDO" type="com.huangxt.dal.dataobject.OverviewDO" />
+
+	<resultMap id="RM-OverviewDO" class="TA-OverviewDO">
+		<result property="id" 		column="ID" 		jdbcType="NUMBER" />
+		<result property="size" 	column="Size" 		jdbcType="NUMBER" />
+		<result property="height" 	column="height" 	jdbcType="NUMBER" />
+		<result property="grade" 	column="grade" 		jdbcType="NUMBER" />
+		<result property="material" column="material" 	jdbcType="NUMBER" />
+		<result property="address" 	column="address" 	jdbcType="VARCHAR" />
+		<result property="stock" 	column="stock" 		jdbcType="NUMBER" />
+	</resultMap>
+
+	<!--根据条件查询货物总览信息，如果入参为null表示无此参数条件 -->
+	<select id="MS-QUERY-BY-CON" parameterClass="HashMap" resultMap="RM-OverviewDO">
+		select * from bs_overview 
+		
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="size">
+				size = #size#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="height">
+				height = #height#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="grade">
+				grade = #grade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="material">
+				material = #material#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="address">
+				address = #address#
+			</isNotEmpty>
+		</dynamic>
+		
+		order by id desc
+		limit #start#, #pageSize#
+	</select>
+	
+	<!--根据条件查询货物总览信息的总条数，用于分页，如果入参为null表示无此参数条件 -->
+	<select id="MS-COUNT-BY-CON" parameterClass="HashMap" resultClass="int">
+		select count(*) from bs_overview 
+		
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="size">
+				size = #size#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="height">
+				height = #height#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="grade">
+				grade = #grade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="material">
+				material = #material#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="address">
+				address = #address#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 第一次更新货物总览信息时，要先插入该条记录 -->
+	<insert id="MS-INSERT-OVERVIEW" parameterClass="HashMap"> 
+	    insert into bs_overview (size, height, grade, material, address, stock) 
+	    values (#size#, #height#, #grade#, #material#, #address#, #stock#)
+	    
+	    <selectKey resultClass="long" keyProperty="id" > 
+			SELECT @@IDENTITY
+	    </selectKey>
+	</insert> 
+	
+	<!-- 根据条件批量更新货物的总览信息 -->
+	<update id="MS-UPDATE-OVERVIEW" parameterClass="TA-OverviewDO">
+		update bs_overview 
+		set stock = #stock#
+		where size = #size# 
+			and height = #height# 
+			and grade = #grade# 
+			and material = #material# 
+			and address = #address#
+	</update>
+	
+</sqlMap>

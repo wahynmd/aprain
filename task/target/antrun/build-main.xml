@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <zip destfile="/personal/workspace_3.7/aprain/task/target/aprain.task.uber.jar">
+    <zipfileset dir="/personal/workspace_3.7/aprain/task/target/classes" prefix="tasks/classes" includes="**"/>
+    <zipfileset dir="/personal/workspace_3.7/aprain/task/target/lib" prefix="tasks/lib" includes="**"/>
+  </zip>
+</target>
+</project>
